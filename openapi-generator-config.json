@@ -1,0 +1,14 @@
+{
+  "java8": "true",
+  "dateLibrary": "java8",
+  "useBeanValidation": "true",
+  "useTags": "true",
+  "generateApiTests": "false",
+  "generateApiDocumentation": "true",
+  "supportingFiles": "false",
+  "serializableModel": "true",
+  "basePackage": "de.samply.project.encryption",
+  "modelPackage": "de.samply.project.encryption.model",
+  "apiPackage": "de.samply.project.encryption.api",
+  "configPackage": "de.samply.project.encryption.config"
+}

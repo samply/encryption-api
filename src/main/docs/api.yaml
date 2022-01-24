@@ -1,0 +1,354 @@
+openapi: 3.0.0
+
+info:
+  title: Encryption API
+  version: 1.0.0
+  description: API specification to support encryption operations
+
+#security:
+#  ignored: /swagger-resources/**
+
+#servers:
+#  - url: http://localhost:8080
+#    description: DEV-ENV
+#  - url: http://localhost:8080
+#    description: PROD-ENV
+
+paths:
+  /encryption/getPublicKeyAsymmetric:
+    get:
+      operationId: getPublicKeyAsymmetric
+      tags:
+        - Encryption
+      description: 'Return the public key used in asymmetric encryption. Format of key: {"string":"{\"primaryKeyId\":<ID>,\"key\":[{\"keyData\":{\"typeUrl\":<URL>,\"keyMaterialType\":\"ASYMMETRIC_PUBLIC\",\"value\":<KEY>},\"outputPrefixType\":<TYPE>,\"keyId\":<ID>,\"status\":\"ENABLED\"}]}"}'
+      responses:
+        200:
+          description: successfully retrieved the public key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+              example: '{"string":"{\"primaryKeyId\":300918915,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPublicKey\",\"keyMaterialType\":\"ASYMMETRIC_PUBLIC\",\"value\":\"EkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogbiWq0rifvrxqUrhxjGF31D7jZtE0qj/GPatSRfntPVUiIBUrIYqtCiHcqopBeiA7PIPWWYUv82Pq/57O0+bKoUer\"},\"outputPrefixType\":\"TINK\",\"keyId\":300918915,\"status\":\"ENABLED\"}]}"}'
+  /encryption/getPrivateKeyAsymmetric:
+    get:
+      operationId: getPrivateKeyAsymmetric
+      tags:
+        - Encryption
+      description: 'Return the private key used in asymmetric encryption. Format of key: {"string":"{\"primaryKeyId\":<ID>,\"key\":[{\"keyData\":{\"typeUrl\":<URL>,\"keyMaterialType\":\"ASYMMETRIC_PRIVATE\",\"value\":<KEY>},\"outputPrefixType\":<TYPE>,\"keyId\":<ID>,\"status\":\"ENABLED\"}]}"}'
+      responses:
+        200:
+          description: successfully retrieved the public key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+              example: '{"string":"{\"primaryKeyId\":504072827,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPrivateKey\",\"keyMaterialType\":\"ASYMMETRIC_PRIVATE\",\"value\":\"EooBEkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogZWs3K+gL/QU423sen8O2aVO8X5l5COPM/H/4gdjWMwoiICngQj49GXnzu4Wkxj6h7Gv3N8UdCjvmNVUdx4miXbYBGiEApi+gsdlv0Q72Nz0+AN73BdtxYt32zEXprgaRtbCNQR0=\"},\"outputPrefixType\":\"TINK\",\"keyId\":504072827,\"status\":\"ENABLED\"}]}"}'
+  /encryption/setPublicKeyAsymmetric/{publicKeyAsymmetric}:
+    get:
+      operationId: setPublicKeyAsymmetricGet
+      tags:
+        - Encryption
+      description: 'Set the public key used in asymmetric encryption. Format of key: {"primaryKeyId":<ID>,"key":[{"keyData":{"typeUrl":<URL>,"keyMaterialType":"ASYMMETRIC_PUBLIC","value":<KEY>},"outputPrefixType":<TYPE>,"keyId":<ID>,"status":"ENABLED"}]}'
+      parameters:
+        - name: publicKeyAsymmetric
+          in: path
+          description: public key for asymmetric encryption
+          schema:
+            type: string
+          example: '{"primaryKeyId":300918915,"key":[{"keyData":{"typeUrl":"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPublicKey","keyMaterialType":"ASYMMETRIC_PUBLIC","value":"EkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogbiWq0rifvrxqUrhxjGF31D7jZtE0qj/GPatSRfntPVUiIBUrIYqtCiHcqopBeiA7PIPWWYUv82Pq/57O0+bKoUer"},"outputPrefixType":"TINK","keyId":300918915,"status":"ENABLED"}]}'
+      responses:
+        201:
+          description: successfully set the public key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/setPublicKeyAsymmetric:
+    post:
+      operationId: setPublicKeyAsymmetricPost
+      tags:
+        - Encryption
+      description: 'Set the public key used in asymmetric encryption. Format of key: {"string":"{\"primaryKeyId\":<ID>,\"key\":[{\"keyData\":{\"typeUrl\":<URL>,\"keyMaterialType\":\"ASYMMETRIC_PUBLIC\",\"value\":<KEY>},\"outputPrefixType\":<TYPE>,\"keyId\":<ID>,\"status\":\"ENABLED\"}]}"}'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRequest'
+            example: '{"string":"{\"primaryKeyId\":504072827,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPrivateKey\",\"keyMaterialType\":\"ASYMMETRIC_PRIVATE\",\"value\":\"EooBEkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogZWs3K+gL/QU423sen8O2aVO8X5l5COPM/H/4gdjWMwoiICngQj49GXnzu4Wkxj6h7Gv3N8UdCjvmNVUdx4miXbYBGiEApi+gsdlv0Q72Nz0+AN73BdtxYt32zEXprgaRtbCNQR0=\"},\"outputPrefixType\":\"TINK\",\"keyId\":504072827,\"status\":\"ENABLED\"}]}"}'
+      responses:
+        201:
+          description: successfully set the public key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/setPrivateKeyAsymmetric/{privateKeyAsymmetric}:
+    get:
+      operationId: setPrivateKeyAsymmetricGet
+      tags:
+        - Encryption
+      description: 'Set the private key used in asymmetric encryption. Format of key: {"primaryKeyId":<ID>,"key":[{"keyData":{"typeUrl":<URL>,"keyMaterialType":"ASYMMETRIC_PRIVATE","value":<KEY>},"outputPrefixType":<TYPE>,"keyId":<ID>,"status":"ENABLED"}]}'
+      parameters:
+        - name: privateKeyAsymmetric
+          in: path
+          description: private key for asymmetric encryption
+          schema:
+            type: string
+          example: '{"primaryKeyId":300918915,"key":[{"keyData":{"typeUrl":"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPrivateKey","keyMaterialType":"ASYMMETRIC_PRIVATE","value":"EkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogbiWq0rifvrxqUrhxjGF31D7jZtE0qj/GPatSRfntPVUiIBUrIYqtCiHcqopBeiA7PIPWWYUv82Pq/57O0+bKoUer"},"outputPrefixType":"TINK","keyId":300918915,"status":"ENABLED"}]}'
+      responses:
+        201:
+          description: successfully set the private key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/setPrivateKeyAsymmetric:
+    post:
+      operationId: setPrivateKeyAsymmetricPost
+      tags:
+        - Encryption
+      description: 'Set the private key used in asymmetric encryption. Format of key: {"string":"{\"primaryKeyId\":<ID>,\"key\":[{\"keyData\":{\"typeUrl\":<URL>,\"keyMaterialType\":\"ASYMMETRIC_PRIVATE\",\"value\":<KEY>},\"outputPrefixType\":<TYPE>,\"keyId\":<ID>,\"status\":\"ENABLED\"}]}"}'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRequest'
+            example: '{"string":"{\"primaryKeyId\":504072827,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPrivateKey\",\"keyMaterialType\":\"ASYMMETRIC_PRIVATE\",\"value\":\"EooBEkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogZWs3K+gL/QU423sen8O2aVO8X5l5COPM/H/4gdjWMwoiICngQj49GXnzu4Wkxj6h7Gv3N8UdCjvmNVUdx4miXbYBGiEApi+gsdlv0Q72Nz0+AN73BdtxYt32zEXprgaRtbCNQR0=\"},\"outputPrefixType\":\"TINK\",\"keyId\":504072827,\"status\":\"ENABLED\"}]}"}'
+      responses:
+        201:
+          description: successfully set the private key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/encryptAsymmetric/{stringToBeEncrypted}:
+    get:
+      operationId: encryptAsymmetricGet
+      tags:
+        - Encryption
+      description: Encrypt the supplied string
+      parameters:
+        - name: stringToBeEncrypted
+          in: path
+          description: string to be encrypted
+          schema:
+            type: string
+          example: HelloWorld
+      responses:
+        201:
+          description: successfully encrypted the string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/encryptAsymmetric:
+    post:
+      operationId: encryptAsymmetricPost
+      tags:
+        - Encryption
+      description: 'Encrypt a string. You will need to pack the string in a JSON object: {"string":"<String to be encrypted>"}'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRequest'
+            example: '{"string":"HelloWorld"}'
+      responses:
+        201:
+          description: successfully encrypted the string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/decryptAsymmetric/{stringToBeDecrypted}:
+    get:
+      operationId: decryptAsymmetricGet
+      tags:
+        - Encryption
+      description: Decrypt the supplied string
+      parameters:
+        - name: stringToBeDecrypted
+          in: path
+          description: string to be decrypted
+          schema:
+            type: string
+          example: 010e5349b8048ed7fd0b58d8ab4498b7ff534fc94c404a5d6bf91c8057481b5081d06824e5624a750f6d78c077d2f6be7133e5300076489d85761e04ed09e4dda06bc129fffddc8ac94757351656dbd894a25001a0365427697802110e71d027528c3a4ceb
+      responses:
+        201:
+          description: successfully decrypted the string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/decryptAsymmetric:
+    post:
+      operationId: decryptAsymmetricPost
+      tags:
+        - Encryption
+      description: 'Decrypt a string. You will need to pack the string in a JSON object: {"string":"<String to be decrypted>"}'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRequest'
+            example: '{"string":"010e5349b8048ed7fd0b58d8ab4498b7ff534fc94c404a5d6bf91c8057481b5081d06824e5624a750f6d78c077d2f6be7133e5300076489d85761e04ed09e4dda06bc129fffddc8ac94757351656dbd894a25001a0365427697802110e71d027528c3a4ceb"}'
+      responses:
+        201:
+          description: successfully decrypted the string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/getKeySymmetric:
+    get:
+      operationId: getKeySymmetric
+      tags:
+        - Encryption
+      description: 'Return the private key used in asymmetric encryption. Format of key: {"string":"{\"primaryKeyId\":<ID>,\"key\":[{\"keyData\":{\"typeUrl\":<URL>,\"keyMaterialType\":\"SYMMERTIC\",\"value\":<KEY>},\"outputPrefixType\":<TYPE>,\"keyId\":<ID>,\"status\":\"ENABLED\"}]}"}'
+      responses:
+        200:
+          description: successfully retrieved the key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+              example: '{"string":"{\"primaryKeyId\":504072827,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPrivateKey\",\"keyMaterialType\":\"SYMMERTIC\",\"value\":\"EooBEkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogZWs3K+gL/QU423sen8O2aVO8X5l5COPM/H/4gdjWMwoiICngQj49GXnzu4Wkxj6h7Gv3N8UdCjvmNVUdx4miXbYBGiEApi+gsdlv0Q72Nz0+AN73BdtxYt32zEXprgaRtbCNQR0=\"},\"outputPrefixType\":\"TINK\",\"keyId\":504072827,\"status\":\"ENABLED\"}]}"}'
+  /encryption/setKeySymmetric/{privateKeyAsymmetric}:
+    get:
+      operationId: setKeySymmetricGet
+      tags:
+        - Encryption
+      description: 'Set the key used in symmetric encryption. Format of key: {"primaryKeyId":<ID>,"key":[{"keyData":{"typeUrl":<URL>,"keyMaterialType":"SYMMETRIC","value":<KEY>},"outputPrefixType":<TYPE>,"keyId":<ID>,"status":"ENABLED"}]}'
+      parameters:
+        - name: privateKeyAsymmetric
+          in: path
+          description: key for symmetric encryption
+          schema:
+            type: string
+          example: '{"primaryKeyId":300918915,"key":[{"keyData":{"typeUrl":"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPrivateKey","keyMaterialType":"SYMMETRIC","value":"EkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogbiWq0rifvrxqUrhxjGF31D7jZtE0qj/GPatSRfntPVUiIBUrIYqtCiHcqopBeiA7PIPWWYUv82Pq/57O0+bKoUer"},"outputPrefixType":"TINK","keyId":300918915,"status":"ENABLED"}]}'
+      responses:
+        201:
+          description: successfully set the key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/setKeySymmetric:
+    post:
+      operationId: setKeySymmetricPost
+      tags:
+        - Encryption
+      description: 'Set the key used in symmetric encryption. Format of key: {"string":"{\"primaryKeyId\":<ID>,\"key\":[{\"keyData\":{\"typeUrl\":<URL>,\"keyMaterialType\":\"SYMMETRIC\",\"value\":<KEY>},\"outputPrefixType\":<TYPE>,\"keyId\":<ID>,\"status\":\"ENABLED\"}]}"}'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRequest'
+            example: '{"string":"{\"primaryKeyId\":504072827,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/google.crypto.tink.EciesAeadHkdfPrivateKey\",\"keyMaterialType\":\"SYMMETRIC\",\"value\":\"EooBEkQKBAgCEAMSOhI4CjB0eXBlLmdvb2dsZWFwaXMuY29tL2dvb2dsZS5jcnlwdG8udGluay5BZXNHY21LZXkSAhAQGAEYARogZWs3K+gL/QU423sen8O2aVO8X5l5COPM/H/4gdjWMwoiICngQj49GXnzu4Wkxj6h7Gv3N8UdCjvmNVUdx4miXbYBGiEApi+gsdlv0Q72Nz0+AN73BdtxYt32zEXprgaRtbCNQR0=\"},\"outputPrefixType\":\"TINK\",\"keyId\":504072827,\"status\":\"ENABLED\"}]}"}'
+      responses:
+        201:
+          description: successfully set the key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/encryptSymmetric/{stringToBeEncrypted}:
+    get:
+      operationId: encryptSymmetricGet
+      tags:
+        - Encryption
+      description: Encrypt the supplied string
+      parameters:
+        - name: stringToBeEncrypted
+          in: path
+          description: string to be encrypted
+          schema:
+            type: string
+          example: HelloWorld
+      responses:
+        201:
+          description: successfully encrypted the string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/encryptSymmetric:
+    post:
+      operationId: encryptSymmetricPost
+      tags:
+        - Encryption
+      description: 'Encrypt a string. You will need to pack the string in a JSON object: {"string":"<String to be encrypted>"}'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRequest'
+            example: '{"string":"HelloWorld"}'
+      responses:
+        201:
+          description: successfully encrypted the string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/decryptSymmetric/{stringToBeDecrypted}:
+    get:
+      operationId: decryptSymmetricGet
+      tags:
+        - Encryption
+      description: Decrypt the supplied string
+      parameters:
+        - name: stringToBeDecrypted
+          in: path
+          description: string to be decrypted
+          schema:
+            type: string
+          example: 010e5349b8048ed7fd0b58d8ab4498b7ff534fc94c404a5d6bf91c8057481b5081d06824e5624a750f6d78c077d2f6be7133e5300076489d85761e04ed09e4dda06bc129fffddc8ac94757351656dbd894a25001a0365427697802110e71d027528c3a4ceb
+      responses:
+        201:
+          description: successfully decrypted the string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+  /encryption/decryptSymmetric:
+    post:
+      operationId: decryptSymmetricPost
+      tags:
+        - Encryption
+      description: 'Decrypt a string. You will need to pack the string in a JSON object: {"string":"<String to be decrypted>"}'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StringRequest'
+            example: '{"string":"010e5349b8048ed7fd0b58d8ab4498b7ff534fc94c404a5d6bf91c8057481b5081d06824e5624a750f6d78c077d2f6be7133e5300076489d85761e04ed09e4dda06bc129fffddc8ac94757351656dbd894a25001a0365427697802110e71d027528c3a4ceb"}'
+      responses:
+        201:
+          description: successfully decrypted the string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringResponse'
+
+components:
+  schemas:
+    StringResponse:
+      type: object
+      properties:
+        string:
+          type: string
+          description: a return string
+    StringRequest:
+      type: object
+      properties:
+        string:
+          type: string
+          description: a request string
