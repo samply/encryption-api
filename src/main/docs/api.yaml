@@ -51,6 +51,7 @@ paths:
       description: 'Set the public key used in asymmetric encryption. Format of key: {"primaryKeyId":<ID>,"key":[{"keyData":{"typeUrl":<URL>,"keyMaterialType":"ASYMMETRIC_PUBLIC","value":<KEY>},"outputPrefixType":<TYPE>,"keyId":<ID>,"status":"ENABLED"}]}'
       parameters:
         - name: publicKeyAsymmetric
+          required: true
           in: path
           description: public key for asymmetric encryption
           schema:
@@ -91,6 +92,7 @@ paths:
       description: 'Set the private key used in asymmetric encryption. Format of key: {"primaryKeyId":<ID>,"key":[{"keyData":{"typeUrl":<URL>,"keyMaterialType":"ASYMMETRIC_PRIVATE","value":<KEY>},"outputPrefixType":<TYPE>,"keyId":<ID>,"status":"ENABLED"}]}'
       parameters:
         - name: privateKeyAsymmetric
+          required: true
           in: path
           description: private key for asymmetric encryption
           schema:
@@ -131,6 +133,7 @@ paths:
       description: Encrypt the supplied string
       parameters:
         - name: stringToBeEncrypted
+          required: true
           in: path
           description: string to be encrypted
           schema:
@@ -171,6 +174,7 @@ paths:
       description: Decrypt the supplied string
       parameters:
         - name: stringToBeDecrypted
+          required: true
           in: path
           description: string to be decrypted
           schema:
@@ -225,6 +229,7 @@ paths:
       description: 'Set the key used in symmetric encryption. Format of key: {"primaryKeyId":<ID>,"key":[{"keyData":{"typeUrl":<URL>,"keyMaterialType":"SYMMETRIC","value":<KEY>},"outputPrefixType":<TYPE>,"keyId":<ID>,"status":"ENABLED"}]}'
       parameters:
         - name: privateKeyAsymmetric
+          required: true
           in: path
           description: key for symmetric encryption
           schema:
@@ -265,6 +270,7 @@ paths:
       description: Encrypt the supplied string
       parameters:
         - name: stringToBeEncrypted
+          required: true
           in: path
           description: string to be encrypted
           schema:
@@ -305,6 +311,7 @@ paths:
       description: Decrypt the supplied string
       parameters:
         - name: stringToBeDecrypted
+          required: true
           in: path
           description: string to be decrypted
           schema:
